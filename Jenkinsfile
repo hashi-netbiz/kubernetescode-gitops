@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("elvisdockerid-test")
+       app = docker.build("elvisdockerid-test:${env.BUILD_ID}")
     }
 
     stage('Test image') {
@@ -23,7 +23,7 @@ node {
     stage('Push image') {
         
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            app.push("${env.BUILD_NUMBER}")
+            app.push()
         }
     }
     
